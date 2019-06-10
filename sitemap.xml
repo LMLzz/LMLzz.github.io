@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lmlhub.cn/2019/06/10/hello-world/</loc>
+    
+    <lastmod>2019-06-10T05:37:22.551Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lmlhub.cn/about/index.html</loc>
     
     <lastmod>2019-06-05T14:18:55.686Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://lmlhub.cn/categories/index.html</loc>
     
     <lastmod>2019-06-05T14:13:25.638Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lmlhub.cn/2019/06/05/hello-world/</loc>
-    
-    <lastmod>2019-06-05T13:37:58.709Z</lastmod>
     
   </url>
   
