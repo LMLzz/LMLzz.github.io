@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lmlhub.cn/2019/08/25/namespace/</loc>
+    
+    <lastmod>2019-08-25T09:42:23.782Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lmlhub.cn/2019/08/25/hello-world/</loc>
     
-    <lastmod>2019-08-25T07:43:14.108Z</lastmod>
+    <lastmod>2019-08-25T09:42:07.328Z</lastmod>
     
   </url>
   
@@ -16,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://lmlhub.cn/about/index.html</loc>
+    <loc>http://lmlhub.cn/categories/index.html</loc>
     
     <lastmod>2019-07-03T10:08:48.595Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://lmlhub.cn/categories/index.html</loc>
+    <loc>http://lmlhub.cn/about/index.html</loc>
     
     <lastmod>2019-07-03T10:08:48.595Z</lastmod>
     
