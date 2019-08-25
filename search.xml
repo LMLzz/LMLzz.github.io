@@ -29,33 +29,6 @@
     
     
     <entry>
-      <title>namespace</title>
-      <link href="/2019/08/25/namespace/"/>
-      <url>/2019/08/25/namespace/</url>
-      
-        <content type="html"><![CDATA[<h2 id="using-namespace-std详解-amp-namespace-名字空间-探究"><a href="#using-namespace-std详解-amp-namespace-名字空间-探究" class="headerlink" title="using namespace std详解  &amp; namespace(名字空间)探究"></a>using namespace std详解  &amp; namespace(名字空间)探究</h2><p>在写C++时，经常在各种文件里看到这样一行代码：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure><p>之前也略微了解过，加上这行代码是为了使用在std名字空间中定义好的C++标识符，但是一直对此时一知半解，今天想探究清楚这个概念。</p><h3 id="一、为什么要使用“using-namepace-std-”"><a href="#一、为什么要使用“using-namepace-std-”" class="headerlink" title="一、为什么要使用“using namepace std;”?"></a>一、为什么要使用“using namepace std;”?</h3><h4 id="1、C-新旧标准"><a href="#1、C-新旧标准" class="headerlink" title="1、C++新旧标准"></a>1、C++新旧标准</h4><p>C++标准类库在C99版本修订时，为了和C语言区分开并且正确的使用名字空间，明确提出不再支持.h结尾的头文件。例如C99之后，C++对于&lt;iostream.h&gt;不再维护，最新版本支持维护<iostream>头文件。</iostream></p><p>旧的C++标准将标准类库声明在带.h后缀的头文件里，定义在<strong>全局空间</strong>内，因此可以直接使用标准库定义的类/函数标识符。此时使用.h文件，就与C语言类似，举个例子:</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello World"</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>现在的最新的g++编译器不再支持.h的头文件格式，上面那段代码在最新的g++编译器下，编译是不通过的。报错如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">lml@lml-null:~/WorkSpace/test$ g++ main.cpp -o main</span><br><span class="line">main.cpp:8:10: fatal error: iostream.h: 没有那个文件或目录</span><br><span class="line"><span class="meta"> #</span><span class="bash">include &lt;iostream.h&gt;</span></span><br><span class="line">          ^~~~~~~~~~~~</span><br><span class="line">compilation terminated.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">lml@lml-null:~/WorkSpace/test$ g++ --version</span><br><span class="line">g++ (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br></pre></td></tr></table></figure><h4 id="2、C99标准"><a href="#2、C99标准" class="headerlink" title="2、C99标准"></a>2、C99标准</h4><p>C99及其以后的标准，不再支持.h的头文件。C++标准程序库中的所有标识符都被定义于一个名为std的namespace中，此时如果想要使用标准库定义的</p><h3 id="二、namespace-名字空间-探究"><a href="#二、namespace-名字空间-探究" class="headerlink" title="二、namespace(名字空间)探究"></a>二、namespace(名字空间)探究</h3><p>所谓namespace，是指标识符的各种可见范围。</p><h4 id="1、使用标准库的namespace"><a href="#1、使用标准库的namespace" class="headerlink" title="1、使用标准库的namespace"></a>1、使用标准库的namespace</h4><p>C＋＋标准程序库中的所有标识符都被定义于一个名为std的namespace中，</p><h4 id="2、定义自己的namespace"><a href="#2、定义自己的namespace" class="headerlink" title="2、定义自己的namespace"></a>2、定义自己的namespace</h4><h3 id="三、关于namespace的一些代码建议"><a href="#三、关于namespace的一些代码建议" class="headerlink" title="三、关于namespace的一些代码建议"></a>三、关于namespace的一些代码建议</h3>]]></content>
-      
-      
-      <categories>
-          
-          <category> C++ </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C++ </tag>
-            
-            <tag> 语法 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Discard</title>
       <link href="/2019/06/10/Discard/"/>
       <url>/2019/06/10/Discard/</url>
