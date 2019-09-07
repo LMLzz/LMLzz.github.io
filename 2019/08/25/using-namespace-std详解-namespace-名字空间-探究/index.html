@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="LML&#39;s Page">
 <meta property="og:description" content="在写C++时，经常在各种文件里看到这样一行代码： 1using namespace std;  之前也略微了解过，加上这行代码是为了使用在std名字空间中定义好的C++标识符，但是一直对此一知半解，为什么写代码的时候需要加上“using namespace std;”，今天想探究清楚这个问题。 为什么要使用“using namepace std;”?C++新旧标准C++标准类库在C99版本修订时，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-02T15:15:25.502Z">
+<meta property="og:updated_time" content="2019-09-07T14:01:23.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="using namespace std详解 &amp;&amp; namespace(名字空间)探究">
 <meta name="twitter:description" content="在写C++时，经常在各种文件里看到这样一行代码： 1using namespace std;  之前也略微了解过，加上这行代码是为了使用在std名字空间中定义好的C++标识符，但是一直对此一知半解，为什么写代码的时候需要加上“using namespace std;”，今天想探究清楚这个问题。 为什么要使用“using namepace std;”?C++新旧标准C++标准类库在C99版本修订时，">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-02T23:15:25+08:00">
-                2019-09-02
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-07T22:01:23+08:00">
+                2019-09-07
               </time>
             
           </span>
@@ -421,7 +421,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">lml@lml-null:~/WorkSpace/test$ g++ -o main main.cpp </span><br><span class="line">main.cpp: In function ‘int main()’:</span><br><span class="line">main.cpp:<span class="number">11</span>:<span class="number">5</span>: error: ‘<span class="built_in">cout</span>’ was <span class="keyword">not</span> declared in <span class="keyword">this</span> scope</span><br><span class="line">     <span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello World"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">     ^~~~</span><br><span class="line">main.cpp:<span class="number">11</span>:<span class="number">5</span>: note: suggested alternative:</span><br><span class="line">In file included from main.cpp:<span class="number">8</span>:<span class="number">0</span>:</span><br><span class="line">/usr/include/c++/<span class="number">7</span>/iostream:<span class="number">61</span>:<span class="number">18</span>: note:   ‘<span class="built_in">std</span>::<span class="built_in">cout</span>’</span><br><span class="line">   <span class="keyword">extern</span> ostream <span class="built_in">cout</span>;  <span class="comment">/// Linked to standard output</span></span><br><span class="line">                  ^~~~</span><br><span class="line">main.cpp:<span class="number">11</span>:<span class="number">30</span>: error: ‘<span class="built_in">endl</span>’ was <span class="keyword">not</span> declared in <span class="keyword">this</span> scope</span><br><span class="line">     <span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello World"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                              ^~~~</span><br><span class="line">main.cpp:<span class="number">11</span>:<span class="number">30</span>: note: suggested alternative:</span><br></pre></td></tr></table></figure>
 
 <p>从上面的报错信息中可以看出，cout是在&lt;iostream&gt;中进行声明的，<strong><em>extern ostream cout;</em></strong>但时由于未告知程序cout的所处的namespace，所以报错。</p>
-<h3 id="namespace-名字空间-探究"><a href="#namespace-名字空间-探究" class="headerlink" title="namespace(名字空间)探究"></a>namespace(名字空间)探究</h3><p>命名空间（namespace）是一种描述逻辑分组的机制，可以将按某些标准在逻辑上属于同一个集团的声明放在同一个命名空间中。[1]</p>
+<h3 id="namespace-名字空间-探究"><a href="#namespace-名字空间-探究" class="headerlink" title="namespace(名字空间)探究"></a>namespace(名字空间)探究</h3><p>命名空间（namespace）是一种描述逻辑分组的机制，可以将按某些标准在逻辑上属于同一个集团的声明放在同一个命名空间中<a href="#1">[1]</a>。</p>
 <p>原来C++标识符的作用域分成三级：代码块（{……}，如复合语句和函数体）、类和全局。现在，在其中的类和全局之间，标准C++又添加了命名空间这一个作用域级别，namespace主要是用来解决命名冲突问题的。C ++标准规范中对namespace的定义如下[2]：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unnamed-<span class="keyword">namespace</span>-definition:</span><br><span class="line">     <span class="keyword">namespace</span> &#123; <span class="keyword">namespace</span>-body &#125;</span><br></pre></td></tr></table></figure>
 
@@ -440,10 +440,14 @@
 <p>上述代码的执行结果为：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grade_1</span><br><span class="line">grade_2</span><br></pre></td></tr></table></figure>
 
-<h4 id="关于namespace的一些代码建议"><a href="#关于namespace的一些代码建议" class="headerlink" title="关于namespace的一些代码建议"></a>关于namespace的一些代码建议</h4><p>[1]<a href="https://blog.csdn.net/touzani/article/details/1637776" target="_blank" rel="noopener">https://blog.csdn.net/touzani/article/details/1637776</a></p>
-<p>[2]<a href="https://blog.csdn.net/Bruce_0712/article/details/53644809" target="_blank" rel="noopener">https://blog.csdn.net/Bruce_0712/article/details/53644809</a></p>
-<p>[3]<a href="https://www.runoob.com/cplusplus/cpp-namespaces.html" target="_blank" rel="noopener">https://www.runoob.com/cplusplus/cpp-namespaces.html</a></p>
-<p>[4]<a href="https://www.zhihu.com/question/26911239/answer/51503880" target="_blank" rel="noopener">https://www.zhihu.com/question/26911239/answer/51503880</a></p>
+<h4 id="关于namespace的一些代码建议"><a href="#关于namespace的一些代码建议" class="headerlink" title="关于namespace的一些代码建议"></a>关于namespace的一些代码建议</h4><p>不要使用</p>
+<blockquote>
+<div id="1">[1] https://blog.csdn.net/touzani/article/details/1637776</div>
+
+<p>[2] <a href="https://blog.csdn.net/Bruce_0712/article/details/53644809" target="_blank" rel="noopener">https://blog.csdn.net/Bruce_0712/article/details/53644809</a></p>
+<p>[3] <a href="https://www.runoob.com/cplusplus/cpp-namespaces.html" target="_blank" rel="noopener">https://www.runoob.com/cplusplus/cpp-namespaces.html</a></p>
+<p>[4] <a href="https://www.zhihu.com/question/26911239/answer/51503880" target="_blank" rel="noopener">https://www.zhihu.com/question/26911239/answer/51503880</a></p>
+</blockquote>
 
       
     </div>
