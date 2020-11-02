@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="LML&#39;s Page">
 <meta property="og:description" content="在写C++时，经常在各种文件里看到这样一行代码： 1using namespace std;  之前也略微了解过，加上这行代码是为了使用在std名字空间中定义好的C++标识符，但是一直对此一知半解，为什么写代码的时候需要加上“using namespace std;”，今天想探究清楚这个问题。 为什么要使用“using namepace std;”?C++新旧标准C++标准类库在C99版本修订时，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-07T14:13:42.403Z">
+<meta property="og:updated_time" content="2019-09-07T14:47:50.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="using namespace std详解 &amp;&amp; namespace(名字空间)探究">
 <meta name="twitter:description" content="在写C++时，经常在各种文件里看到这样一行代码： 1using namespace std;  之前也略微了解过，加上这行代码是为了使用在std名字空间中定义好的C++标识符，但是一直对此一知半解，为什么写代码的时候需要加上“using namespace std;”，今天想探究清楚这个问题。 为什么要使用“using namepace std;”?C++新旧标准C++标准类库在C99版本修订时，">
@@ -340,7 +340,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-07T22:13:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-07T22:47:50+08:00">
                 2019-09-07
               </time>
             
@@ -410,7 +410,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello World"</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>现在的最新的g++编译器不再支持.h的头文件格式，上面那段代码在最新的g++编译器（version-7.4.0）下，编译是不通过的。报错如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lml@lml-null:~/WorkSpace/test$ g++ main.cpp -o main</span><br><span class="line">main.cpp:8:10: fatal error: iostream.h: 没有那个文件或目录</span><br><span class="line"><span class="meta"> #</span>include &lt;iostream.h&gt;</span><br><span class="line">          ^~~~~~~~~~~~</span><br><span class="line">compilation terminated.</span><br><span class="line"></span><br><span class="line">lml@lml-null:~/WorkSpace/test$ g++ --version</span><br><span class="line">g++ (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lml@lml-null:~/WorkSpace/test$ g++ main.cpp -o main</span><br><span class="line">main.cpp:8:10: fatal error: iostream.h: 没有那个文件或目录</span><br><span class="line"><span class="meta"> #</span><span class="bash">include &lt;iostream.h&gt;</span></span><br><span class="line">          ^~~~~~~~~~~~</span><br><span class="line">compilation terminated.</span><br><span class="line"></span><br><span class="line">lml@lml-null:~/WorkSpace/test$ g++ --version</span><br><span class="line">g++ (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br></pre></td></tr></table></figure>
 
 <h4 id="C99标准"><a href="#C99标准" class="headerlink" title="C99标准"></a>C99标准</h4><p>C99及其以后的标准，不再支持.h的头文件。此时仍然在头文件中进行声明工作，C++标准程序库中的所有标识符都被定义于一个名为<strong>std</strong>的<strong>namespace</strong>中，而不是像之前那样，定义在<strong>全局空间</strong>内。</p>
 <p>此时如果想要使用标准库定义的类或者功能函数如<strong>cout</strong>，则需要使用<strong>using namespace std</strong>，因为需要使用的标准库中的标识符均在<strong>std</strong>此名字空间中定义。</p>
@@ -440,7 +440,10 @@
 <p>上述代码的执行结果为：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grade_1</span><br><span class="line">grade_2</span><br></pre></td></tr></table></figure>
 
-<h4 id="关于namespace的一些代码建议"><a href="#关于namespace的一些代码建议" class="headerlink" title="关于namespace的一些代码建议"></a>关于namespace的一些代码建议</h4><p>不要使用</p>
+<h4 id="关于namespace的一些代码建议"><a href="#关于namespace的一些代码建议" class="headerlink" title="关于namespace的一些代码建议"></a>关于namespace的一些代码建议</h4><p>名称空间有助于组织程序中使用标识符，避免名称冲突。由于标准库是使用性的头文件组织实现的，它将名称放在std名称空间中，因此使用这些头文件需要处理名称空间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;    <span class="comment">//a using-directive</span></span><br></pre></td></tr></table></figure>
+
+<p>然而，<strong>不管需要于否，都导出名称空间中的所有名称，是于名称空间的初衷背道而驰的</strong></p>
 <blockquote>
 <div id="1"> [1] https://blog.csdn.net/touzani/article/details/1637776</div>
 <div id="2"> [2] https://blog.csdn.net/Bruce_0712/article/details/53644809</div>
@@ -678,7 +681,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
